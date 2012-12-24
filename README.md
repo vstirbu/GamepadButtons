@@ -14,7 +14,7 @@ This plugin allows you to use the buttons of Android gamepads in Cordova/PhoneGa
 	
 ## Using the plugin ##
 
-The plugin emits a 'gamepad.{buttonCode} event when a button is pressed. The 'buttonCode' values are standard Android key code [constants](http://developer.android.com/reference/android/view/KeyEvent.html).
+The plugin emits a ```gamepad.{buttonCode}``` event when a button is pressed. The 'buttonCode' values are standard Android key code [constants](http://developer.android.com/reference/android/view/KeyEvent.html).
 
 ```javascript
 document.addEventListener('gamepad.KEYCODE_BUTTON_L1', function() {console.log('L1');}, false);
