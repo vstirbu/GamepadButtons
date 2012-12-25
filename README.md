@@ -22,7 +22,7 @@ document.addEventListener('gamepad.KEYCODE_BUTTON_L1', function() {console.log('
 
 The MIT License
 
-Copyright © 2012 Vlad Stirbu Ltd.
+Copyright © 2012 Vlad Stirbu.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
