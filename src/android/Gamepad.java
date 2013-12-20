@@ -1,10 +1,10 @@
 /**
  * Gamepad buttons plugin for Cordova/Phonegap
  *
- * @author Vlad Stirbu/www.vladstirbu.com
+ * @author Vlad Stirbu
  * Copyright (c) Vlad Stirbu. 2012-2013. All Rights Reserved.
  * Available under the terms of the MIT License.
- * 
+ *
  */
 
 package com.vladstirbu.cordova;
@@ -12,9 +12,8 @@ package com.vladstirbu.cordova;
 import java.util.Hashtable;
 
 import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.DroidGap;
-import org.apache.cordova.api.CordovaInterface;
-import org.apache.cordova.api.CordovaPlugin;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,9 +24,10 @@ import android.view.View;
 import android.view.View.OnKeyListener;
 
 public class Gamepad extends CordovaPlugin {
-  
+    
 	private Integer[] buttons = new Integer[17];
 	private Hashtable<String, Integer> map = new Hashtable<String, Integer>();
+	private CordovaPlugin self = this;
 	
     /**
      * @param cordova The context of the main Activity.
@@ -71,15 +71,15 @@ public class Gamepad extends CordovaPlugin {
 				
 				String jsStr = jsString(keyCode, event);
 				if (!jsStr.isEmpty()) {
-					((DroidGap) v.getContext()).loadUrl(jsStr);
+					self.webView.sendJavascript(jsStr);
 				}
         		return true;
         	}
-        });	
-
+        });
+        
 		Log.v("GamepadButtons", "initialized");
 	}
-
+    
 	/**
 	 * Constructs the JavaScript string that triggers the event in Cordova WebView
 	 * @param keyCode
@@ -89,7 +89,7 @@ public class Gamepad extends CordovaPlugin {
 	private String jsString(int keyCode, KeyEvent event) {
 		String eventType;
 		JSONObject data = new JSONObject();
-
+        
 		if (this.map.containsKey(KeyEvent.keyCodeToString(keyCode))) {
 			
 			if (event.getAction() == 0) {
@@ -107,7 +107,7 @@ public class Gamepad extends CordovaPlugin {
 				e.printStackTrace();
 			}
 			
-			return "javascript:cordova.fireWindowEvent('" + eventType + "', " + data.toString() + ");";
+			return "cordova.fireWindowEvent('" + eventType + "', " + data.toString() + ");";
 		} else {
 			return "";
 		}

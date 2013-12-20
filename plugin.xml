@@ -1,0 +1,33 @@
+<plugin
+  xmlns="http://www.phonegap.com/ns/plugins/1.0"
+  id="com.vladstirbu.cordova.gamepad"
+  version="0.1.0">
+  
+  <name>Gamepad</name>
+  <author>Vlad Stirbu</author>
+  <license>MIT</license>
+  <keywords>gamepad,polyfill</keywords>
+  
+  <description>
+    Gamepad API polyfill
+  </description>
+  
+  <engines>
+    <engine name="cordova" version=">=3.0.0" />
+  </engines>
+  
+  <js-module src="www/Gamepad.js" name="Gamepad">
+  </js-module>
+  
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Gamepad">
+        <param name="android-package" value="com.vladstirbu.cordova.Gamepad" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+  
+    <source-file src="src/android/Gamepad.java" target-dir="src/com/vladstirbu/cordova" />
+  </platform>
+  
+</plugin>
