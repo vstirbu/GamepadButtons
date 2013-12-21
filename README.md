@@ -20,7 +20,7 @@ The javascript API follows the [W3C Gamepad API](https://dvcs.w3.org/hg/gamepad/
 
 The plugin was tested on the following devices:
 
-* [JDX s5110](http://www.jxd.hk/products.asp?id=611&selectclassid=009006)
+* [JXD s5110](http://www.jxd.hk/products.asp?id=611&selectclassid=009006)
 
 ## License
 
