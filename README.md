@@ -16,6 +16,26 @@ cordova plugins add https://github.com/vstirbu/GamepadButtons
 
 The javascript API follows the [W3C Gamepad API](https://dvcs.w3.org/hg/gamepad/raw-file/default/gamepad.html), extended with elements from [Mozilla Gamepad API](https://developer.mozilla.org/en-US/docs/API/Gamepad/Using_Gamepad_API).
 
+### Implementation status
+
+#### Methods
+
+* navigator.[getGamepads](https://dvcs.w3.org/hg/gamepad/raw-file/default/gamepad.html#idl-def-Navigator)()
+
+#### Events
+
+* window.[gamepadconnected](https://dvcs.w3.org/hg/gamepad/raw-file/default/gamepad.html#the-gamepadconnected-event)
+* window.[gamepadbutton](https://developer.mozilla.org/en-US/docs/Web/Guide/API/Gamepad?redirectlocale=en-US&redirectslug=API%2FGamepad%2FUsing_Gamepad_API#nslDOMGamepadButtonEvent)
+
+#### TODO
+
+Currently, the plugin supports only the device's incorporated gamepad. External gamepads not supported.
+
+The following events have not been implemented:
+
+* [gamepaddisconnected](https://dvcs.w3.org/hg/gamepad/raw-file/default/gamepad.html#the-gamepaddisconnected-event) (not needed on the incorporated gamepad)
+* [gamepadaxismove](https://developer.mozilla.org/en-US/docs/Web/Guide/API/Gamepad?redirectlocale=en-US&redirectslug=API%2FGamepad%2FUsing_Gamepad_API#nslDOMGamepadAxisMoveEvent) (my development device does not have have analog joysticks)
+
 ## Device experience
 
 The plugin was tested on the following devices:
