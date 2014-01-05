@@ -1,7 +1,7 @@
 <plugin
   xmlns="http://www.phonegap.com/ns/plugins/1.0"
   id="com.vladstirbu.cordova.gamepad"
-  version="0.1.0">
+  version="0.1.1">
   
   <name>Gamepad</name>
   <author>Vlad Stirbu</author>
@@ -17,6 +17,7 @@
   </engines>
   
   <js-module src="www/Gamepad.js" name="Gamepad">
+    <clobbers target="navigator.gamepad" />
   </js-module>
   
   <platform name="android">

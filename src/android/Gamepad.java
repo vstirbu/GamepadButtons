@@ -62,12 +62,12 @@ public class Gamepad extends CordovaPlugin {
 				//Log.v("Input", InputDevice.getDevice(1).getName());
 				//Log.v("Input", String.valueOf(InputDevice.getDevice(1).getSources()));
 				
-				Log.v("Device id", String.valueOf(event.getDeviceId()));
-				Log.v("Source id", String.valueOf(event.getSource()));
-				Log.v("Input device", String.valueOf(InputDevice.getDevice(event.getDeviceId()).getName()));
+				//Log.v("Device id", String.valueOf(event.getDeviceId()));
+				//Log.v("Source id", String.valueOf(event.getSource()));
+				//Log.v("Input device", String.valueOf(InputDevice.getDevice(event.getDeviceId()).getName()));
 				Log.v("KEY", String.valueOf(event.getScanCode()));
 				Log.v("KEY", KeyEvent.keyCodeToString(keyCode));
-				Log.v("GamePad", String.valueOf(KeyEvent.isGamepadButton(keyCode)));
+				//Log.v("GamePad", String.valueOf(KeyEvent.isGamepadButton(keyCode)));
 				
 				String jsStr = jsString(keyCode, event);
 				if (!jsStr.isEmpty()) {

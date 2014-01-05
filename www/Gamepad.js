@@ -1,18 +1,21 @@
 /**
  * Gamepad API polyfill for Apache Cordova/PhoneGap
  *
- * Copyright (c) 2013 Vlad Stirbu <vlad.stirbu@ieee.org>
+ * Copyright (c) 2013-2014 Vlad Stirbu <vlad.stirbu@ieee.org>
  * Available under the terms of the MIT License.
  *
  */
 
-(function (window, navigator) {
+var cordova = require('cordova');
+
+var GamepadPlugin = function (window, navigator) {
   var _gamepads = [],
       _indeces = [];
   
   function timestamp() {
     // Older Android WebView might not support performance
-    return window.performance ? performance.now() : Date.now();
+    //return performance.now ? performance.now() : Date.now();
+    return Date.now();
   }
   
   function GamepadButton() {
@@ -89,23 +92,6 @@
     }
   }
   
-  function GamepadConnectedEvent(gamepad) {
-    var event = new CustomEvent('gamepadconnected');
-    
-    event.gamepad = gamepad;
-    
-    return event;
-  }
-  
-  function GamepadButtonEvent(button, gamepad) {
-    var event = new CustomEvent('gamebutton');
-    
-    event.button = button;
-    event.gamepad = gamepad;
-    
-    return event;
-  }
-  
   function buttonHandler(e, pressed) {
     var index = 0;
     
@@ -120,10 +106,15 @@
     _gamepads[index].buttons.timestamp = timestamp();
     
     if (isNewGamepad(e)) {
-      window.dispatchEvent(GamepadConnectedEvent(_gamepads[index]));
+       cordova.fireWindowEvent('gamepadconnected', {
+         gamepad: _gamepads[index]
+       });
     }
     
-    window.dispatchEvent(GamepadButtonEvent(e.button, _gamepads[index]));
+     cordova.fireWindowEvent('gamepadbutton', {
+       button: e.button,
+       gamepad: _gamepads[index]
+     });
     
   }
   
@@ -137,4 +128,8 @@
   
   navigator.getGamepads = getGamepads;
   
-})(window, navigator);
+};
+
+var gamepad = new GamepadPlugin(window, navigator);
+
+module.exports = gamepad;
