@@ -44,7 +44,7 @@ public class Gamepad extends CordovaPlugin {
 		this.map.put("KEYCODE_BUTTON_L1", 4);
 		this.map.put("KEYCODE_BUTTON_R1", 5);
 		this.map.put("KEYCODE_BUTTON_L2", 6);
-		this.map.put("KEYCODE_BUTTON_R1", 7);
+		this.map.put("KEYCODE_BUTTON_R2", 7);
 		this.map.put("KEYCODE_SPACE", 8);
 		this.map.put("KEYCODE_ENTER", 9);
 		this.map.put("KEYCODE_DPAD_UP", 12);
