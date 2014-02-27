@@ -46,6 +46,3 @@ The plugin was tested on the following devices:
 
 The plugin is available under MIT license.
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vstirbu/gamepadbuttons/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
