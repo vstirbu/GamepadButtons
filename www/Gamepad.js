@@ -97,25 +97,24 @@ var GamepadPlugin = function (window, navigator) {
     
     if (isNewGamepad(e)) {
       addGamepad(e);
-      console.log('gamepad added');
+      //console.log('gamepad added');
+
+      cordova.fireWindowEvent('gamepadconnected', {
+       gamepad: _gamepads[index]
+      });
     }
     
     // update gamepad
-    _gamepads[index].buttons[e.button].pressed = pressed;
-    _gamepads[index].buttons[e.button].value = pressed ? 1 : 0;
-    _gamepads[index].buttons.timestamp = timestamp();
-    
-    if (isNewGamepad(e)) {
-       cordova.fireWindowEvent('gamepadconnected', {
-         gamepad: _gamepads[index]
-       });
-    }
-    
-     cordova.fireWindowEvent('gamepadbutton', {
+    if (_gamepads[index].buttons[e.button].pressed !== pressed) {
+      _gamepads[index].buttons[e.button].pressed = pressed;
+      _gamepads[index].buttons[e.button].value = pressed ? 1 : 0;
+      _gamepads[index].buttons.timestamp = timestamp();
+
+      cordova.fireWindowEvent('gamepadbutton', {
        button: e.button,
        gamepad: _gamepads[index]
-     });
-    
+      });
+    }  
   }
   
   window.addEventListener('GamepadButtonUp', function (e) {
