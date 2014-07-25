@@ -11,20 +11,20 @@ var cordova = require('cordova');
 var GamepadPlugin = function (window, navigator) {
   var _gamepads = [],
       _indeces = [];
-  
+
   function timestamp() {
     // Older Android WebView might not support performance
     //return performance.now ? performance.now() : Date.now();
     return Date.now();
   }
-  
+
   function GamepadButton() {
     return {
       pressed: false,
       value: 0
     };
   }
-  
+
   function Gamepad(options) {
     var result = {
       id: options.id || 'builtin',
@@ -37,26 +37,26 @@ var GamepadPlugin = function (window, navigator) {
         return GamepadButton();
       })
     };
-    
+
     return result;
   }
-  
+
   function getGamepads() {
     var result = [];
-    
+
     _gamepads.forEach(function (value) {
       if (value && value.connected) {
         result.push(value);
       }
     });
-    
+
     return result;
   }
-  
+
   function getNextAvailableIndex() {
     var result,
         available = false;
-    
+
     available = _indeces.some(function (value, index) {
       if (!value) {
         result = index;
@@ -64,37 +64,37 @@ var GamepadPlugin = function (window, navigator) {
         return true;
       }
     });
-      
+
     if (!available) {
       _indeces.push(true);
       result = _indeces.length - 1;
     }
-    
+
     return result;
   }
-  
+
   function isNewGamepad() {
     return !_gamepads.length;
   }
-  
+
   function addGamepad() {
     var index = getNextAvailableIndex(),
         gamepad;
-    
+
     gamepad = Gamepad({
       index: index
     });
-    
+
     if (index === _gamepads.length) {
       _gamepads.push(gamepad);
     } else {
       _gamepads[index] = gamepad;
     }
   }
-  
+
   function buttonHandler(e, pressed) {
     var index = 0;
-    
+
     if (isNewGamepad(e)) {
       addGamepad(e);
       //console.log('gamepad added');
@@ -103,7 +103,7 @@ var GamepadPlugin = function (window, navigator) {
        gamepad: _gamepads[index]
       });
     }
-    
+
     // update gamepad
     if (_gamepads[index].buttons[e.button].pressed !== pressed) {
       _gamepads[index].buttons[e.button].pressed = pressed;
@@ -114,19 +114,30 @@ var GamepadPlugin = function (window, navigator) {
        button: e.button,
        gamepad: _gamepads[index]
       });
-    }  
+    }
   }
-  
-  window.addEventListener('GamepadButtonUp', function (e) {
-    buttonHandler(e, false);
+
+  /*
+   * Register gamepad events callback as soon as the device is ready
+   */
+  document.addEventListener('deviceready', function () {
+    cordova.exec(function (e) {
+      switch (e.type) {
+      case 'GamepadButtonDown':
+        buttonHandler(e, true);
+        break;
+      case 'GamepadButtonUp':
+        buttonHandler(e, false);
+        break;
+      default:
+      }
+    }, function () {
+      // error callback
+    }, 'Gamepad', 'register', []);
   }, false);
-  
-  window.addEventListener('GamepadButtonDown', function (e) {
-    buttonHandler(e, true);
-  }, false);
-  
+
   navigator.getGamepads = getGamepads;
-  
+
 };
 
 var gamepad = new GamepadPlugin(window, navigator);
