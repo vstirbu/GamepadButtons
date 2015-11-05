@@ -2,29 +2,27 @@
  * Gamepad buttons plugin for Cordova/Phonegap
  *
  * @author Vlad Stirbu
- * Copyright (c) Vlad Stirbu. 2012-2014. All Rights Reserved.
+ * Copyright (c) Vlad Stirbu. 2012-2015. All Rights Reserved.
  * Available under the terms of the MIT License.
  *
  */
 
 package com.vladstirbu.cordova;
 
-import java.util.Hashtable;
+import android.util.Log;
+import android.view.KeyEvent;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnKeyListener;
+import java.util.Hashtable;
 
 public class Gamepad extends CordovaPlugin {
 
@@ -50,34 +48,14 @@ public class Gamepad extends CordovaPlugin {
 		this.map.put("KEYCODE_BUTTON_L2", 6);
 		this.map.put("KEYCODE_BUTTON_R2", 7);
 		this.map.put("KEYCODE_SPACE", 8);
+		this.map.put("KEYCODE_BUTTON_SELECT", 8);
 		this.map.put("KEYCODE_ENTER", 9);
+		this.map.put("KEYCODE_BUTTON_START", 9);
 		this.map.put("KEYCODE_DPAD_UP", 12);
 		this.map.put("KEYCODE_DPAD_DOWN", 13);
 		this.map.put("KEYCODE_DPAD_LEFT", 14);
 		this.map.put("KEYCODE_DPAD_RIGHT", 15);
 		this.map.put("KEYCODE_BACK", 16);
-
-		this.webView.setOnKeyListener(new OnKeyListener() {
-
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				//Log.v("Keyboards", String.valueOf(InputDevice.getDeviceIds().length));
-				//Log.v("Input", InputDevice.getDevice(1).getName());
-				//Log.v("Input", String.valueOf(InputDevice.getDevice(1).getSources()));
-
-				//Log.v("Device id", String.valueOf(event.getDeviceId()));
-				//Log.v("Source id", String.valueOf(event.getSource()));
-				//Log.v("Input device", String.valueOf(InputDevice.getDevice(event.getDeviceId()).getName()));
-				Log.v("KEY", String.valueOf(event.getScanCode()));
-				Log.v("KEY", KeyEvent.keyCodeToString(keyCode));
-				//Log.v("GamePad", String.valueOf(KeyEvent.isGamepadButton(keyCode)));
-
-				PluginResult result = new PluginResult(PluginResult.Status.OK, processEvent(keyCode, event));
-				result.setKeepCallback(true);
-				callback.sendPluginResult(result);
-				return true;
-			}
-		});
 
 		Log.v("GamepadButtons", "initialized");
 	}
@@ -85,16 +63,33 @@ public class Gamepad extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args, CallbackContext contextCallback) {
 		callback = contextCallback;
 
-		PluginResult result = new PluginResult(Status.NO_RESULT);
-		result.setKeepCallback(true);
-		return true;
+		if (action.equals("register")) {
+			PluginResult result = new PluginResult(Status.NO_RESULT);
+			result.setKeepCallback(true);
+			return true;
+		} else {
+			callback.error("Invalid Action");
+			return false;
+		}
+	}
+
+	@Override
+	public Object onMessage(String id, Object data) {
+		if (data instanceof KeyEvent && id.equals("gamepad-plugin")) {
+			PluginResult result = new PluginResult(PluginResult.Status.OK, processEvent((KeyEvent) data));
+			result.setKeepCallback(true);
+			callback.sendPluginResult(result);
+			return true;
+		} else {
+			return super.onMessage(id, data);
+		}
 	}
 
 	/*
 	 * Processes the event and returns the result to be passed to webview
 	 */
-	private JSONObject processEvent(int keyCode, KeyEvent event) {
-		String key = KeyEvent.keyCodeToString(keyCode);
+	private JSONObject processEvent(KeyEvent event) {
+		String key = KeyEvent.keyCodeToString(event.getKeyCode());
 		String eventType;
 		JSONObject data = new JSONObject();
 

@@ -1,7 +1,7 @@
 <plugin
   xmlns="http://www.phonegap.com/ns/plugins/1.0"
   id="com.vladstirbu.cordova.gamepad"
-  version="0.2.0">
+  version="0.3.0">
 
   <name>Gamepad</name>
   <author>Vlad Stirbu</author>
@@ -33,6 +33,7 @@
     </config-file>
 
     <source-file src="src/android/Gamepad.java" target-dir="src/com/vladstirbu/cordova" />
+    <source-file src="src/android/CordovaGamepadActivity.java" target-dir="src/com/vladstirbu/cordova" />
   </platform>
 
 </plugin>
