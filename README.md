@@ -76,6 +76,7 @@ The plugin was tested on the following devices:
 
 * [JXD s5110](http://www.jxd.hk/products.asp?id=611&selectclassid=009006)
 * [JXD s5110B](http://www.jxd.hk/game-console/s5110b/)
+* [JXD S7800B](http://www.jxd.hk/game-console/s7800b/)
 
 ## License
 
