@@ -13,9 +13,7 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import org.apache.cordova.CordovaActivity;
-
-public class CordovaGamepadActivity extends CordovaActivity {
+public class CordovaActivity extends org.apache.cordova.CordovaActivity {
 
     @Override
     public boolean dispatchGenericMotionEvent(MotionEvent event) {

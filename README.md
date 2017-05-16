@@ -32,9 +32,9 @@ public class MainActivity extends CordovaActivity
 to:
 
 ```java
-import com.vladstirbu.cordova.CordovaGamepadActivity;
+import com.vladstirbu.cordova.CordovaActivity;
 
-public class MainActivity extends CordovaGamepadActivity
+public class MainActivity extends CordovaActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
