@@ -120,7 +120,7 @@ var GamepadPlugin = function (window, navigator) {
   /*
    * Register gamepad events callback as soon as the device is ready
    */
-  cordova.channel.onCordovaReady.subscribe(function() {
+  window.document.addEventListener('deviceready', function () {
     cordova.exec(function (e) {
       switch (e.type) {
       case 'GamepadButtonDown':
@@ -137,7 +137,7 @@ var GamepadPlugin = function (window, navigator) {
   }, false);
 
   navigator.getGamepads = getGamepads;
-
+  console.log('GamepadButtons plugin initialized');
 };
 
 var gamepad = new GamepadPlugin(window, navigator);
