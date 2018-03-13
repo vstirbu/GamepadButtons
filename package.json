@@ -1,0 +1,17 @@
+{
+  "name": "cordova-plugin-gamepad",
+  "version": "0.3.2",
+  "description": "Gamepad API polyfill",
+  "main": "www/Gamepad.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vstirbu/GamepadButtons.git"
+  },
+  "author": "Vlad Stirbu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vstirbu/GamepadButtons/issues"
+  },
+  "homepage": "https://github.com/vstirbu/GamepadButtons#readme",
+  "ecosystem": "cordova"
+}
